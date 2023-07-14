@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public TMP_Text scoreText; // Text mesh pro컴포넌트 쓴 경우
     public GameObject gameoverUi;
+    public float score = default;
 
-    private int score = 0;
+    
 
 
     private void Awake()
@@ -41,16 +42,22 @@ public class GameManager : MonoBehaviour
         {
             GFunc.LoadScene(GFunc.GetActiveSceneName());
         }
-    }
-
-    public void AddScore(int newScore)
-    {
         if (isGameOver == false)
         {
-            score += newScore;
-            scoreText.text = string.Format("Score : {0}", score);
+            score += Time.deltaTime * 2;
+            scoreText.text = string.Format("Score : {0}M", (int)score);
+
+            if((int)score == 60)
+            {
+
+                Debug.Log("단상이 나옵니다");
+            }
         }
     }
+
+    //public void AddScore(int newScore)
+    //{
+    //}
 
     public void OnPlayerDead()
     {
