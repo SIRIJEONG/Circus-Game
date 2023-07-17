@@ -10,6 +10,7 @@ public class PlayerControll : MonoBehaviour
     private int jumpCount = 0;
     private bool isGrounded = false;
     private bool isDead = false;
+    private bool isFinish = false;
 
     private Rigidbody2D playerRigid = default;
     private Animator animator = default;
@@ -82,21 +83,38 @@ public class PlayerControll : MonoBehaviour
 
     }
 
+    private void Finish()
+    {
+
+        playerRigid.velocity = Vector2.zero;
+        isFinish = true;
+        GameManager.Instance.OnPlayerDead();
+    }
+
 
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag==("Dead"))
         {
-            Debug.Log("ав╬З╫ю╢о╢ы");
             Die();
         }
+
+
+        if (collision.collider.tag == ("Finish"))
+        {
+            Die();
+        }
+
         if (0.7f < collision.contacts[0].normal.y)
         {
             isGrounded = true;
             jumpCount = 0;
         }
     }
+
+
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {

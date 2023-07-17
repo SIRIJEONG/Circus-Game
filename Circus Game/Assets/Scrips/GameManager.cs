@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool isFinish = false;
     public bool isGameOver = false;
     public TMP_Text scoreText; // Text mesh pro컴포넌트 쓴 경우
     public GameObject gameoverUi;
@@ -23,7 +24,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GFunc.LogWarning("씬에 두 개 이상의 게임 매니저가 존재합니다 !");
             Destroy(gameObject);
         }
 
@@ -42,17 +42,13 @@ public class GameManager : MonoBehaviour
         {
             GFunc.LoadScene(GFunc.GetActiveSceneName());
         }
-        if (isGameOver == false)
-        {
-            score += Time.deltaTime * 2;
-            scoreText.text = string.Format("Score : {0}M", (int)score);
+        //if (isGameOver == false)
+        //{
+        //    score += Time.deltaTime * 2;
+        //    scoreText.text = string.Format("Score : {0}M", (int)score);
 
-            if((int)score == 60)
-            {
 
-                Debug.Log("단상이 나옵니다");
-            }
-        }
+        //}
     }
 
     //public void AddScore(int newScore)
@@ -63,5 +59,10 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         gameoverUi.SetActive(true);
+    }
+
+    public void Finish()
+    {
+
     }
 }
